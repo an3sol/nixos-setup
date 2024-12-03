@@ -45,8 +45,10 @@ curl git.raw > install.sh && chmod +x install.sh && ./install.sh
 
 
 ## PRO tips
+```bash
 sudo dd if=/path/to/your/image.iso of=/dev/sdX bs=4M status=progress && sync
 passwd
 ssh nixos@10.1.2.34
 sudo su 
 curl git.raw > install.sh && ./install.sh
+```
