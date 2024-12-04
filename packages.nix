@@ -132,6 +132,7 @@
     google-chrome
     #chromium
     #firefox-bin
+    #firefox
 
     # System Information
     neofetch
