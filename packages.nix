@@ -81,6 +81,7 @@
     # Sound & Audio
     audacity
     pavucontrol
+    scdl
     spotify
     #spotify-tui
     #spotube
@@ -148,6 +149,22 @@
     # Phone
     #adb-sync
 
+    # Multimedia
+    ffmpeg
+    ffmpegthumbs
+    ffmpegthumbnailer
+
+    # Archives
+    file-roller
+    zip
+    xz
+    unzip
+    p7zip
+    rar
+    gzip
+    xarchiver
+    peazip
+
     # Development Tools
     jq
     bc
@@ -168,21 +185,6 @@
     #python311Packages.pip
     #python3Packages.requests
 
-    # Multimedia
-    ffmpeg
-    ffmpegthumbs
-    ffmpegthumbnailer
-
-    # Archives
-    file-roller
-    zip
-    xz
-    unzip
-    p7zip
-    rar
-    gzip
-    xarchiver
-    peazip
 
     # Window Manager
     sway
