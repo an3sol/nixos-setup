@@ -19,7 +19,7 @@
     htop
     tmux
     screen
-    trash-cli
+    #trash-cli
     bat
     xclip
     file
@@ -42,6 +42,7 @@
     #libreoffice
 
     # File System & Disk Utilities
+    #services.gvfs.enable = true;
     gvfs
     nfs-utils
     ntfs3g
@@ -57,18 +58,18 @@
     sshpass
     nmap # A utility for network discovery and security auditing
     ipcalc  # it is a calculator for the IPv4/v6 addresses
-#    mtr # A network diagnostic tool
-#    dnsutils  # `dig` + `nslookup`
-#    ldns # replacement of `dig`, it provide the command `drill`
-#    aria2 # A lightweight multi-protocol & multi-source command-line download utility
-#    socat # replacement of openbsd-netcat
+    #    mtr # A network diagnostic tool
+    dnsutils  # `dig` + `nslookup`
+    #    ldns # replacement of `dig`, it provide the command `drill`
+    aria2 # A lightweight multi-protocol & multi-source command-line download utility
+    socat # replacement of openbsd-netcat
     filezilla
     syncthing
     networkmanagerapplet
     whois
     tcpdump
     netcat-gnu
-    #openvpn
+    openvpn
 
     # Screenshot & Screen Recording
     scrot
@@ -166,7 +167,6 @@
     pciutils
     usbutils
 
-
     python3
     python3Full
     #python3Packages.pip
@@ -202,10 +202,9 @@
     #wofi
     #dmenu
 
-    #    libnotify   # For notify-send command for mako
-    #    dunst       # Notification daemon
+    #libnotify   # For notify-send command for mako
+    #dunst       # Notification daemon
     
-
     # Optional Extras
     waypipe
     #swaybg
@@ -223,5 +222,6 @@
     #waybar
     #i3status
     #i3blocks
+
   ];
 }
