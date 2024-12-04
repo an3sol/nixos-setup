@@ -223,6 +223,5 @@
     #appimage-run
     #virtualbox
     libreoffice
-
   ];
 }
