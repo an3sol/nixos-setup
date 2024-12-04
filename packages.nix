@@ -37,10 +37,6 @@
     curl
     rsync
 
-    #appimage-run
-    #virtualbox
-    #libreoffice
-
     # File System & Disk Utilities
     #services.gvfs.enable = true;
     gvfs
@@ -102,7 +98,6 @@
     	#amdvlk
     	#rocm-opencl-icd
     	#glaxnimate (dep)
-
 
     # File Managers
     pcmanfm
@@ -222,6 +217,10 @@
     #waybar
     #i3status
     #i3blocks
+
+    #appimage-run
+    #virtualbox
+    libreoffice
 
   ];
 }
