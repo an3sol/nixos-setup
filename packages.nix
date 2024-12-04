@@ -186,7 +186,6 @@
     #python311Packages.pip
     #python3Packages.requests
 
-
     # Window Manager
     sway
     grim      # Screenshot tool
@@ -208,7 +207,6 @@
     #swaybg
     #swayidle
     #xwayland
-    
     #wdisplays
     
     # glib # gsettings for gtk config
