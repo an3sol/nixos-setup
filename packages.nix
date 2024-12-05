@@ -6,6 +6,8 @@
 
 {
   environment.systemPackages = with pkgs; [
+
+    zfstools
     # System Tools & CLI
     git
     wget
@@ -68,8 +70,11 @@
 
     # Torrent
     rqbit
-    transmission
-    transmission-gtk
+    #transmission
+    transmission_4
+    
+    #transmission-gtk
+    transmission_4-gtk
 
     # Sound & Audio
     audacity
@@ -180,7 +185,7 @@
     #python3Packages.requests
 
     # Window Manager
-    sway
+    #sway
     grim      # Screenshot tool
     slurp     # Select area for screenshots
     wl-clipboard # Clipboard utilities
