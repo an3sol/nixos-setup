@@ -4,13 +4,6 @@
 
 { config, pkgs, ... }:
 
-  fonts.packages = with pkgs; [
-    cantarell-fonts
-    font-awesome
-  ];
-
-  nixpkgs.config.allowUnfree = true; #for google-chrome etc
-
 {
   environment.systemPackages = with pkgs; [
     # System Tools & CLI
@@ -39,7 +32,7 @@
 
     # File System & Disk Utilities
     #services.gvfs.enable = true;
-    gvfs
+    #gvfs
     nfs-utils
     ntfs3g
     gparted
@@ -209,7 +202,7 @@
     #xwayland
     #wdisplays
     
-    # glib # gsettings for gtk config
+    #glib # gsettings for gtk config
     #
     #programs.ssh.forwardAgent = true;
 
