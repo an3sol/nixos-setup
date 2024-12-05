@@ -78,6 +78,17 @@ partition_disk() {
     sleep 3
 }
 
+# ZFS Cleanup function
+zfs_cleanup() {
+    log "Cleaning up ZFS mounts and exporting pool"
+    
+    # Unmount all ZFS filesystems
+    zfs umount -a
+    
+    # Export the pool
+    zpool export zroot
+}
+
 # Create encrypted ZFS pool with advanced settings
 create_zpool() {
     log "Creating Encrypted ZFS Pool with NVMe Optimizations"
@@ -149,29 +160,49 @@ mount_filesystems() {
     zfs mount zroot/home
 }
 
+# Prepare for NixOS installation
+prepare_nixos() {
+    log "Preparing NixOS Installation"
+    
+    # Generate hardware configuration
+    nixos-generate-config --root /mnt
+    
+    log "Hardware configuration generated"
+    echo -e "${YELLOW}Next steps:${NC}"
+    echo "1. Edit /mnt/etc/nixos/configuration.nix"
+    echo "2. Customize ZFS and encryption settings"
+    echo "3. Install NixOS: nixos-install"
+}
+
 # Main installation script
 main() {
     # Root check
     [[ "$(id -u)" -eq 0 ]] || error "Must be run as root"
 
     # Dependency check
-    local REQUIRED_TOOLS=(zpool zfs sgdisk wipefs mkfs.vfat)
+    local REQUIRED_TOOLS=(zpool zfs sgdisk wipefs mkfs.vfat nixos-generate-config)
     for cmd in "${REQUIRED_TOOLS[@]}"; do
         command -v "$cmd" >/dev/null 2>&1 || error "Missing $cmd command"
     done
 
+    # Catch any unexpected errors
+    trap 'error "Script failed at line $LINENO"' ERR
+
+    # Installation steps
     select_disk
     confirm_wipe
     partition_disk
     format_efi
     create_zpool
     mount_filesystems
+    
+    # Clean up ZFS mounts and export pool
+    zfs_cleanup
+    
+    # Prepare for NixOS installation
+    prepare_nixos
 
     echo -e "\n${GREEN}ZFS NixOS Installation Preparation Complete!${NC}"
-    echo -e "${YELLOW}Next steps:${NC}"
-    echo "1. Generate hardware configuration: nixos-generate-config --root /mnt"
-    echo "2. Edit /mnt/etc/nixos/configuration.nix"
-    echo "3. Install NixOS: nixos-install"
 }
 
 # Execute main script
