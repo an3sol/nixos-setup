@@ -6,7 +6,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-
     zfstools
     # System Tools & CLI
     git
@@ -35,7 +34,7 @@
     # File System & Disk Utilities
     #services.gvfs.enable = true;
     #gvfs
-    nfs-utils
+#    nfs-utils
     ntfs3g
     gparted
     baobab
@@ -139,6 +138,7 @@
     flat-remix-gtk
     flat-remix-icon-theme
     lxappearance
+gradience # for wayland
 
     # Image Viewers & Editors
     nomacs
@@ -207,7 +207,7 @@
     #xwayland
     #wdisplays
     
-    #glib # gsettings for gtk config
+    glib # gsettings for gtk config
     #
     #programs.ssh.forwardAgent = true;
 
