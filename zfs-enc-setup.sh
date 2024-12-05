@@ -21,14 +21,16 @@ error() {
 # Disk selection with improved error handling
 select_disk() {
     log "Available Disks:"
-    readarray -t DISKS < <(ls /dev/disk/by-id/ | grep -E 'nvme|ata|scsi')
+    readarray -t DISKS < <(lsblk -d -o NAME,SIZE,TYPE | grep 'disk' | awk '{print $1}')
     
     if [ ${#DISKS[@]} -eq 0 ]; then
         error "No suitable disks found"
     fi
 
     for i in "${!DISKS[@]}"; do
-        echo "$((i+1))) ${DISKS[i]}"
+        # Get full disk info
+        DISK_INFO=$(lsblk -d -o NAME,SIZE,TYPE,MODEL "/dev/${DISKS[i]}")
+        echo "$((i+1))) $DISK_INFO"
     done
 
     read -p "Select disk number: " disk_choice
@@ -40,11 +42,11 @@ select_disk() {
         error "Invalid disk selection"
     fi
 
-    DISK="/dev/disk/by-id/${DISKS[$((disk_choice-1))]}"
+    SELECTED_DISK="/dev/${DISKS[$((disk_choice-1))]}"
     DISK_NAME="${DISKS[$((disk_choice-1))]}"
     
-    # Get total disk size for reserve calculations
-    DISK_SIZE=$(lsblk -bno SIZE "$DISK")
+    # Get total disk size using lsblk
+    DISK_SIZE=$(lsblk -b -n -o SIZE "$SELECTED_DISK" | awk '{print $1}')
     RESERVE_SIZE=$((DISK_SIZE * 20 / 100))
     
     log "Selected Disk: $DISK_NAME"
@@ -58,22 +60,22 @@ confirm_wipe() {
     [[ "$confirm" == "YES" ]] || error "Installation cancelled"
 }
 
-# Partition disk with more robust partitioning
+# Modify partition_disk() function
 partition_disk() {
     log "Clearing existing partition table"
-    wipefs -af "$DISK"
-    sgdisk -Zo "$DISK"
+    wipefs -af "$SELECTED_DISK"
+    sgdisk -Zo "$SELECTED_DISK"
 
     log "Creating EFI partition (512MB)"
-    sgdisk -n1:1M:+512M -t1:EF00 "$DISK"
-    EFI_PART="${DISK}-part1"
+    sgdisk -n1:1M:+512M -t1:EF00 "$SELECTED_DISK"
+    EFI_PART="${SELECTED_DISK}1"
 
     log "Creating ZFS partition (remaining space)"
-    sgdisk -n2:0:0 -t2:bf01 "$DISK"
-    ZFS_PART="${DISK}-part2"
+    sgdisk -n2:0:0 -t2:bf01 "$SELECTED_DISK"
+    ZFS_PART="${SELECTED_DISK}2"
 
     # Robust kernel partition table update
-    partprobe "$DISK"
+    partprobe "$SELECTED_DISK"
     udevadm settle
     sleep 3
 }
