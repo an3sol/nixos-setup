@@ -6,6 +6,20 @@
 
 {
   environment.systemPackages = with pkgs; [
+
+
+mesa
+mesa.opencl
+vulkan-tools
+libva-utils
+#nixos-render-docs
+
+#  gtk3
+#  adwaita-icon-theme
+#  papirus-icon-theme
+#  bibata-cursors
+
+
     zfstools
     # System Tools & CLI
     git
@@ -107,8 +121,9 @@
     vim
     emacs
     #vscodium
-    #neovide
-    #neovim
+    neovim
+    neovide #gtk for nvim
+
 
     # Communication
     discord
@@ -129,7 +144,9 @@
     google-chrome
     #chromium
     #firefox-bin
-    #firefox
+    	firefox
+  	# With this
+	 (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true;}) {})
 
     # System Information
     neofetch
@@ -138,11 +155,11 @@
     flat-remix-gtk
     flat-remix-icon-theme
     lxappearance
-gradience # for wayland
+    gradience # for wayland
 
     # Image Viewers & Editors
     nomacs
-    #imagemagick
+    imagemagick # thumbnails for gif 
     krita
 
     # Phone
@@ -197,15 +214,20 @@ gradience # for wayland
     #wofi
     #dmenu
 
-    #libnotify   # For notify-send command for mako
+    libnotify   # For notify-send command for mako
     #dunst       # Notification daemon
     
     # Optional Extras
     waypipe
-    #swaybg
-    #swayidle
-    #xwayland
-    #wdisplays
+    swaybg
+    swayidle
+    xwayland
+xorg.xhost
+
+    wdisplays # Helps to configure screen monitors
+
+# for ssh forwa
+wayvnc
     
     glib # gsettings for gtk config
     #
